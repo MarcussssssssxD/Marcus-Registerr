@@ -22,8 +22,6 @@ module.exports.run = async (client, message, args) => {
     message.mentions.members.first() ||
     message.guild.members.cache.get(args[0]);
 
-
-
   if (!üye)
     return message.channel
       .send(
@@ -32,8 +30,8 @@ module.exports.run = async (client, message, args) => {
           .setDescription(`Lütfen Bir Kullanıcı Etiketleyiniz`)
       )
       .then(m => m.delete({ timeout: 3000 }));
-  
-    let uye = message.guild.member(üye);
+
+  let uye = message.guild.member(üye);
   let logs = db.get(`kullanici.${uye.id}.islog`) || [];
   logs = logs.reverse();
   let ismleri =
@@ -47,7 +45,7 @@ module.exports.run = async (client, message, args) => {
           )
           .join("\n")
       : "Kaydı Bulunamadı!";
-  
+
   args = args.filter(a => a !== "" && a !== " ").splice(1);
   let isim = args
     .filter(arg => isNaN(arg))
@@ -102,9 +100,7 @@ module.exports.run = async (client, message, args) => {
               .setColor("GREEN")
               .setAuthor("Erkek olarak bir kullanıcı kaydedildi!")
               .setDescription(
-                `<a:basarili:796036099562012674> ${
-                  üye.user
-                } adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.erkekrol1}>, <@&${id.erkekrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri}`
+                `<a:basarili:796036099562012674> ${üye.user} adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.erkekrol1}>, <@&${id.erkekrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri}`
               )
           )
           .then(m => m.delete({ timeout: 15000 }));
@@ -116,9 +112,7 @@ module.exports.run = async (client, message, args) => {
               .setColor("GREEN")
               .setAuthor("Kız olarak bir kullanıcı kaydedildi!")
               .setDescription(
-                `<a:basarili:796036099562012674> ${
-                  üye.user
-                } adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.kızrol1}>, <@&${id.kızrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri} `
+                `<a:basarili:796036099562012674> ${üye.user} adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.kızrol1}>, <@&${id.kızrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri} `
               )
           )
           .then(m => m.delete({ timeout: 15000 }));

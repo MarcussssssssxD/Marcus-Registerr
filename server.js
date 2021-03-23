@@ -115,8 +115,36 @@ client.on("warn", e => {
 
 client.on("error", e => {
   console.log(chalk.bgRed(e.replace(regToken, "that was redacted")));
+  
 });
 
+
+client.on("message", msg => {
+  if (msg.content.toLowerCase() === "tag") {
+    msg.channel.send(`\`${id.tag}\``);
+  }
+});
+
+
+client.on("message", msg => {
+  if (msg.content.toLowerCase() === "!tag") {
+    msg.channel.send(`\`${id.tag}\``);
+  }
+});
+
+
+client.on("message", msg => {
+  if (msg.content.toLowerCase() === ".tag") {
+    msg.channel.send(`\`${id.tag}\``);
+  }
+});
+
+
+client.on("message", msg => {
+  if (msg.content.toLowerCase() === "/tag") {
+    msg.channel.send(`\`${id.tag}\``);
+  }
+});
 
 /////////////////////////////////////////////////HOŞ GELDİN MESAJI EMBEDLİ////////////////////////////////////////////////////
 
@@ -174,9 +202,13 @@ client.on("guildMemberAdd", member => {
     )
     .setDescription(
       `${member.user} Aramıza Hoşgeldin \n
-      Seninle beraber **${guild.memberCount  }** kişi olduk! \n
+      Seninle beraber **${guild.memberCount}** kişi olduk! \n
       Kaydının yapılması için ses kanalına geçmelisin. \n
-      Hesabın **(${moment(user.createdAt ).format("DD")} ${aylar[moment(user.createdAt).format("MM")]} ${moment(user.createdAt).format("YYYY HH:mm:ss")})** zamanında kurulmuş! \n
+      Hesabın **(${moment(user.createdAt).format("DD")} ${
+        aylar[moment(user.createdAt).format("MM")]
+      } ${moment(user.createdAt).format(
+        "YYYY HH:mm:ss"
+      )})** zamanında kurulmuş! \n
       Hesabın: ${kontrol} \n
       Kayıt yetkilileri seninle ilgilenecektir.`
     );
@@ -187,7 +219,7 @@ client.on("guildMemberAdd", member => {
 
 
 
-/////////////////////////////////////////////////HOŞ GELDİN MESAJI////////////////////////////////////////////////////
+/////////////////////////////////////////////////HOŞ GELDİN MESAJI EMBEDSİZ////////////////////////////////////////////////////
 
 client.on("guildMemberAdd", member => {
   let yetkili = id.yetkili;
@@ -230,11 +262,12 @@ client.on("guildMemberAdd", member => {
   let kanal = id.kayıtsohbet;
   if (!kanal) return;
 
-
   client.channels.cache.get(kanal).send(`${member.user} Aramıza Hoşgeldin \n
-      Seninle beraber **${guild.memberCount  }** kişi olduk! \n
+      Seninle beraber **${guild.memberCount}** kişi olduk! \n
       Kaydının yapılması için ses kanalına geçmelisin. \n
-      Hesabın **(${moment(user.createdAt ).format("DD")} ${aylar[moment(user.createdAt).format("MM")]} ${moment(user.createdAt).format("YYYY HH:mm:ss")})** zamanında kurulmuş! \n
+      Hesabın **(${moment(user.createdAt).format("DD")} ${
+    aylar[moment(user.createdAt).format("MM")]
+  } ${moment(user.createdAt).format("YYYY HH:mm:ss")})** zamanında kurulmuş! \n
       Hesabın: ${kontrol} \n
       Kayıt yetkilileri seninle ilgilenecektir.`);
 });
@@ -242,56 +275,107 @@ client.on("guildMemberAdd", member => {
 
 
 
+/////////////////////////////////////////////////TAG ALANA ROL////////////////////////////////////////////////////
+
 
 client.on("userUpdate", async (oldUser, newUser) => {
   if (oldUser.username !== newUser.username) {
-          let tag = id.tag
-          let sunucu = id.sunucu
-          let kanal = id.tagkanal
-          let rol = id.tagrol
+    let tag = id.tag;
+    let sunucu = id.sunucu;
+    let kanal = id.tagkanal;
+    let rol = id.tagrol;
 
-          
-
-  try {
-
-  if (newUser.username.includes(tag) && !client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.cache.has(rol)) {
-  await client.channels.cache.get(kanal).send(new Discord.MessageEmbed().setColor("#00ff51").setDescription(`${newUser} \`${tag}\` Tagımızı Aldığı İçin <@&${rol}> Rolünü Verdim`));
-  await client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.add(rol);  
+    try {
+      if (
+        newUser.username.includes(tag) &&
+        !client.guilds.cache
+          .get(sunucu)
+          .members.cache.get(newUser.id)
+          .roles.cache.has(rol)
+      ) {
+        await client.channels.cache
+          .get(kanal)
+          .send(
+            new Discord.MessageEmbed()
+              .setColor("#00ff51")
+              .setDescription(
+                `${newUser} \`${tag}\` Tagımızı Aldığı İçin <@&${rol}> Rolünü Verdim`
+              )
+          );
+        await client.guilds.cache
+          .get(sunucu)
+          .members.cache.get(newUser.id)
+          .roles.add(rol);
+      }
+      if (
+        !newUser.username.includes(tag) &&
+        client.guilds.cache
+          .get(sunucu)
+          .members.cache.get(newUser.id)
+          .roles.cache.has(rol)
+      ) {
+        await client.channels.cache
+          .get(kanal)
+          .send(
+            new Discord.MessageEmbed()
+              .setColor("#ff0000")
+              .setDescription(
+                `${newUser} \`${tag}\` Tagımızı Çıkardığı İçin <@&${rol}> Rolünü Aldım`
+              )
+          );
+        await client.guilds.cache
+          .get(sunucu)
+          .members.cache.get(newUser.id)
+          .roles.remove(rol);
+      }
+    } catch (e) {
+      console.log(`Bir hata oluştu! ${e}`);
+    }
   }
-  if (!newUser.username.includes(tag) && client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.cache.has(rol)) {
-  await client.channels.cache.get(kanal).send(new Discord.MessageEmbed().setColor("#ff0000").setDescription(`${newUser} \`${tag}\` Tagımızı Çıkardığı İçin <@&${rol}> Rolünü Aldım`));
-  await client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.remove(rol);
-  } 
-} catch (e) {
-console.log(`Bir hata oluştu! ${e}`)
- }
-} 
 });
 
+
+
+
+
+/////////////////////////////////////////////////TAG KONTROL////////////////////////////////////////////////////
+
+
 client.on("guildMemberAdd", member => {
-let sunucuid = id.sunucu; 
-let tag = id.tag; 
-let rol = id.tagrol; 
-let channel = id.tagkanal;
-if(member.user.username.includes(tag)){
-member.roles.add(rol)
-  const embed = new Discord.MessageEmbed()
+  let sunucuid = id.sunucu;
+  let tag = id.tag;
+  let rol = id.tagrol;
+  let channel = id.tagkanal;
+  if (member.user.username.includes(tag)) {
+    member.roles.add(rol);
+    const embed = new Discord.MessageEmbed()
       .setColor("#00ff51")
-      .setDescription(`<@${member.id}> adlı kişinin isminde tagımız tespit edildiğinden dolayı <@&${rol}> rolünü verdim.`)
-      client.channels.cache.get(id.tagkanal).send(embed)
-}
-})
+      .setDescription(
+        `<@${member.id}> adlı kişinin isminde tagımız tespit edildiğinden dolayı <@&${rol}> rolünü verdim.`
+      );
+    client.channels.cache.get(id.tagkanal).send(embed);
+  }
+});
 
+/////////////////////////////////////////////////OTO ROL////////////////////////////////////////////////////
 
 
 client.on("guildMemberAdd", member => {
-    member.roles.add(id.kayıtsız); 
+  member.roles.add(id.kayıtsız);
 });
+
+
+/////////////////////////////////////////////////BOTU SESE SOKMA////////////////////////////////////////////////////
+
 
 client.on("ready", () => {
   client.channels.cache.get(id.ses).join();
-  });  
+});
+
+
+/////////////////////////////////////////////////TOKEN////////////////////////////////////////////////////
+
 
 client
-  .login('ODIzOTEwNjI4OTY3ODQxODQy.YFnskQ.gt4tFujHa2OuVBlWAoYGZR9-c1o')
+  .login(ayarlar.token)
   .then(console.log("Bot başarılı bir şekilde giriş yaptı."));
