@@ -36,13 +36,13 @@ module.exports.run = async (client, message, args) => {
     • \`Yeni İsim:\` **${'id.tag'} ${isim} | ${yas}**
     
     Kayıt Türünü Emojilere Basarak Seçebilirsiniz;
-    ♂ : \`Erkek Kayıt\`, ♀ : \`Kız Kayıt\`, :x: : \`Kayıt İşlemi İptal\``)
+    ♂ : \`Erkek Kayıt\`, ♀ : \`Kız Kayıt\`, ❌ : \`Kayıt İşlemi İptal\``)
   );
 
-  kayıtmesaj.react("♂") .then(() => kayıtmesaj.react("♀").then(() => kayıtmesaj.react("x")));
+  kayıtmesaj.react("♂") .then(() => kayıtmesaj.react("♀").then(() => kayıtmesaj.react("❌")));
   const filter = (reaction, victim) => {
     return (
-      ['♂', '♀', 'x'].includes(reaction.emoji.name) && victim.id === message.author.id );
+      ['♂', '♀', '❌'].includes(reaction.emoji.name) && victim.id === message.author.id );
   };
   kayıtmesaj.awaitReactions(filter, { max: 1, time: 30000, errors: ["time"] }).then(collected => { const reaction = collected.first();
       if (reaction.emoji.name === "♂") {
@@ -54,7 +54,7 @@ module.exports.run = async (client, message, args) => {
           )
           .then(m => m.delete({ timeout: 15000 }));
         kkayıt();
-      } else if (reaction.emoji.name === "x") {
+      } else if (reaction.emoji.name === "❌") {
         kayıtmesaj .edit( new Discord.MessageEmbed().setDescription(`${message.author} Tarafından Kayıt İşlemi İptal Edildi!` )).then(m => m.delete({ timeout: 3000 }));
       }
     });
