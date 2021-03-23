@@ -269,6 +269,22 @@ console.log(`Bir hata oluştu! ${e}`)
 });
 
 client.on("guildMemberAdd", member => {
+let sunucuid = id.sunucu; 
+let tag = id.tag; 
+let rol = id.tagrol; 
+let channel = id.tagkanal;
+if(member.user.username.includes(tag)){
+member.roles.add(rol)
+  const embed = new Discord.MessageEmbed()
+      .setColor("#00ff51")
+      .setDescription(`<@${member.id}> adlı kişinin isminde tagımız tespit edildiğinden dolayı <@&${rol}> rolünü verdim.`)
+      client.channels.cache.get(id.tagkanal).send(embed)
+}
+})
+
+
+
+client.on("guildMemberAdd", member => {
     member.roles.add(id.kayıtsız); 
 });
 
