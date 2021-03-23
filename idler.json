@@ -1,21 +1,21 @@
 {
-  "genelsohbet": "",
-  "kayıtsohbet": "",
+  "genelsohbet": "GENEL SOHBET KANALI İDSİ",
+  "kayıtsohbet": "KAYIT SOHBET KANALI İDSİ",
 
-  "yetkili": "",
+  "yetkili": "YETKİLİ ROL İD",
 
-  "erkekrol1": "",
-  "erkekrol2": "",
+  "erkekrol1": "VERİLCEK ERKEK ROL",
+  "erkekrol2": "VERİLCEK ERKEK ROL",
 
-  "kızrol1": "",
-  "kızrol2": "",
+  "kızrol1": "VERİLCEK KIZ ROL",
+  "kızrol2": "VERİLCEK KIZ ROL",
 
-  "ses": "",
+  "ses": "SES KANALI İDSİ",
   
-  "tag": "キ",
-  "tagkanal": "",
-  "tagrol": "",
-  "sunucu": "",
+  "tag": "TAG",
+  "tagkanal": "TAG KANALI İDSİ",
+  "tagrol": "TAG ALINCA VERİLCEK ROL",
+  "sunucu": "SUNUCU İD",
 
-  "kayıtsız": ""
+  "kayıtsız": "KAYITSIZ ROL İD"
 }

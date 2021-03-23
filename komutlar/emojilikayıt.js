@@ -133,6 +133,10 @@ module.exports.run = async (client, message, args) => {
     üye.roles.add(id.erkekrol1);
     üye.roles.add(id.erkekrol2);
     üye.setNickname(`${id.tag} ${isim} | ${yas}`);
+    üye.roles.remove(id.kayıtsız);
+    üye.roles.add(id.erkekrol1);
+    üye.roles.add(id.erkekrol2);
+    üye.setNickname(`${id.tag} ${isim} | ${yas}`);
     client.channels.cache
       .get(id.genelsohbet)
       .send(
@@ -148,6 +152,10 @@ module.exports.run = async (client, message, args) => {
   };
 
   const kkayıt = () => {
+    üye.roles.remove(id.kayıtsız);
+    üye.roles.add(id.kızrol1);
+    üye.roles.add(id.kızrol2);
+    üye.setNickname(`${id.tag} ${isim} | ${yas}`);
     üye.roles.remove(id.kayıtsız);
     üye.roles.add(id.kızrol1);
     üye.roles.add(id.kızrol2);
