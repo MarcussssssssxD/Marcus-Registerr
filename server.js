@@ -118,6 +118,75 @@ client.on("error", e => {
 });
 
 
+/////////////////////////////////////////////////HOŞ GELDİN MESAJI EMBEDLİ////////////////////////////////////////////////////
+
+client.on("guildMemberAdd", member => {
+  let yetkili = id.yetkili;
+  let kayıtsohbet2 = id.kayıtsohbet;
+
+  let guild = member.guild;
+
+  const channel = member.guild.channels.cache.find(
+    channel => channel.id === kayıtsohbet2
+  );
+  let aylartoplam = {
+    "01": "Ocak",
+    "02": "Şubat",
+    "03": "Mart",
+    "04": "Nisan",
+    "05": "Mayıs",
+    "06": "Haziran",
+    "07": "Temmuz",
+    "08": "Ağustos",
+    "09": "Eylül",
+    "10": "Ekim",
+    "11": "Kasım",
+    "12": "Aralık"
+  };
+  let aylar = aylartoplam;
+
+  let user = client.users.cache.get(member.id);
+  require("moment-duration-format");
+
+  const kurulus = new Date().getTime() - user.createdAt.getTime();
+  const gün = moment.duration(kurulus).format("D");
+  var kontrol = [];
+
+  if (gün < 7) {
+    kontrol = " **Bu Hesap Şüphelidir**";
+  }
+  if (gün > 7) {
+    kontrol = " **Bu Hesap Güvenlidir**";
+  }
+  let kanal = id.kayıtsohbet;
+  if (!kanal) return;
+
+  const embed = new Discord.MessageEmbed()
+    .setColor("RANDOM")
+    .setThumbnail(
+      user.avatarURL({
+        dynamic: true,
+        format: "gif",
+        format: "png",
+        format: "jpg",
+        size: 2048
+      })
+    )
+    .setDescription(
+      `${member.user} Aramıza Hoşgeldin \n
+      Seninle beraber **${guild.memberCount  }** kişi olduk! \n
+      Kaydının yapılması için ses kanalına geçmelisin. \n
+      Hesabın **(${moment(user.createdAt ).format("DD")} ${aylar[moment(user.createdAt).format("MM")]} ${moment(user.createdAt).format("YYYY HH:mm:ss")})** zamanında kurulmuş! \n
+      Hesabın: ${kontrol} \n
+      Kayıt yetkilileri seninle ilgilenecektir.`
+    );
+  client.channels.cache.get(kanal).send(`<@&${yetkili}>, ${member.user}`);
+  client.channels.cache.get(kanal).send(embed);
+});
+
+
+
+
 /////////////////////////////////////////////////HOŞ GELDİN MESAJI////////////////////////////////////////////////////
 
 client.on("guildMemberAdd", member => {
@@ -158,31 +227,19 @@ client.on("guildMemberAdd", member => {
   if (gün > 7) {
     kontrol = " **Bu Hesap Güvenlidir**";
   }
-  let kanal = ayarlar.kayıtsohbet;
+  let kanal = id.kayıtsohbet;
   if (!kanal) return;
 
-  const embed = new Discord.MessageEmbed()
-    .setColor("RANDOM")
-    .setThumbnail(
-      user.avatarURL({
-        dynamic: true,
-        format: "gif",
-        format: "png",
-        format: "jpg",
-        size: 2048
-      })
-    )
-    .setDescription(
-      `${member.user} Aramıza Hoşgeldin \n\n
-      Seninle beraber **${guild.memberCount  }** kişi olduk! \n\n
-      Kaydının yapılması için ses kanalına geçmelisin. \n\n
-      Hesabın **(${moment(user.createdAt ).format("DD")} ${aylar[moment(user.createdAt).format("MM")]} ${moment(user.createdAt).format("YYYY HH:mm:ss")})** zamanında kurulmuş! \n\n
-      Hesabın: ${kontrol} \n\n
-      Kayıt yetkilileri seninle ilgilenecektir.`
-    );
-  client.channels.cache.get(kanal).send(`<@&${yetkili}>, ${member.user}`);
-  client.channels.cache.get(kanal).send(embed);
+
+  client.channels.cache.get(kanal).send(`${member.user} Aramıza Hoşgeldin \n
+      Seninle beraber **${guild.memberCount  }** kişi olduk! \n
+      Kaydının yapılması için ses kanalına geçmelisin. \n
+      Hesabın **(${moment(user.createdAt ).format("DD")} ${aylar[moment(user.createdAt).format("MM")]} ${moment(user.createdAt).format("YYYY HH:mm:ss")})** zamanında kurulmuş! \n
+      Hesabın: ${kontrol} \n
+      Kayıt yetkilileri seninle ilgilenecektir.`);
 });
+
+
 
 
 
@@ -220,5 +277,5 @@ client.on("ready", () => {
   });  
 
 client
-  .login('ODIzOTEwNjI4OTY3ODQxODQy.YFnskQ.QUrCMXTvxb3dOGLfuUL8LurDbFE')
+  .login('ODIzOTEwNjI4OTY3ODQxODQy.YFnskQ.gt4tFujHa2OuVBlWAoYGZR9-c1o')
   .then(console.log("Bot başarılı bir şekilde giriş yaptı."));
