@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const ayarlar = require("./ayarlar.json");
+const id = require("./idler.json");
+
 const chalk = require("chalk");
 const moment = require("moment");
 const { Client, Util } = require("discord.js");
@@ -119,8 +121,8 @@ client.on("error", e => {
 /////////////////////////////////////////////////HOŞ GELDİN MESAJI////////////////////////////////////////////////////
 
 client.on("guildMemberAdd", member => {
-  let yetkili = ayarlar.kayıtyetkili;
-  let kayıtsohbet2 = ayarlar.kayıtsohbet;
+  let yetkili = id.yetkili;
+  let kayıtsohbet2 = id.kayıtsohbet;
 
   let guild = member.guild;
 
@@ -171,17 +173,12 @@ client.on("guildMemberAdd", member => {
       })
     )
     .setDescription(
-      `<a:cizgilikalp:796041657216270396> ${
-        member.user
-      } Aramıza Hoşgeldin \n\n<a:alev:796041955586474005> Seninle beraber **${
-        guild.memberCount
-      }** kişi olduk! \n\n<a:alev:796041955586474005> Kaydının yapılması için ses kanalına geçmelisin. \n\n<a:alev:796041955586474005> Hesabın **(${moment(
-        user.createdAt
-      ).format("DD")} ${aylar[moment(user.createdAt).format("MM")]} ${moment(
-        user.createdAt
-      ).format(
-        "YYYY HH:mm:ss"
-      )})** zamanında kurulmuş! \n\n<a:alev:796041955586474005> Hesabın: ${kontrol} \n\n<a:alev:796041955586474005> Kayıt yetkilileri seninle ilgilenecektir.`
+      `${member.user} Aramıza Hoşgeldin \n\n
+      Seninle beraber **${guild.memberCount  }** kişi olduk! \n\n
+      Kaydının yapılması için ses kanalına geçmelisin. \n\n
+      Hesabın **(${moment(user.createdAt ).format("DD")} ${aylar[moment(user.createdAt).format("MM")]} ${moment(user.createdAt).format("YYYY HH:mm:ss")})** zamanında kurulmuş! \n\n
+      Hesabın: ${kontrol} \n\n
+      Kayıt yetkilileri seninle ilgilenecektir.`
     );
   client.channels.cache.get(kanal).send(`<@&${yetkili}>, ${member.user}`);
   client.channels.cache.get(kanal).send(embed);
@@ -189,7 +186,38 @@ client.on("guildMemberAdd", member => {
 
 
 
+client.on("userUpdate", async (oldUser, newUser) => {
+  if (oldUser.username !== newUser.username) {
+          let tag = id.tag
+          let sunucu = id.sunucu
+          let kanal = id.tagkanal
+          let rol = id.tagrol
 
+          
+
+  try {
+
+  if (newUser.username.includes(tag) && !client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.cache.has(rol)) {
+  await client.channels.cache.get(kanal).send(new Discord.MessageEmbed().setColor("#00ff51").setDescription(`${newUser} \`${tag}\` Tagımızı Aldığı İçin <@&${rol}> Rolünü Verdim`));
+  await client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.add(rol);  
+  }
+  if (!newUser.username.includes(tag) && client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.cache.has(rol)) {
+  await client.channels.cache.get(kanal).send(new Discord.MessageEmbed().setColor("#ff0000").setDescription(`${newUser} \`${tag}\` Tagımızı Çıkardığı İçin <@&${rol}> Rolünü Aldım`));
+  await client.guilds.cache.get(sunucu).members.cache.get(newUser.id).roles.remove(rol);
+  } 
+} catch (e) {
+console.log(`Bir hata oluştu! ${e}`)
+ }
+} 
+});
+
+client.on("guildMemberAdd", member => {
+    member.roles.add(id.kayıtsız); 
+});
+
+client.on("ready", () => {
+  client.channels.cache.get(id.ses).join();
+  });  
 
 client
   .login('ODIzOTEwNjI4OTY3ODQxODQy.YFnskQ.QUrCMXTvxb3dOGLfuUL8LurDbFE')

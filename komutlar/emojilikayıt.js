@@ -76,7 +76,7 @@ module.exports.run = async (client, message, args) => {
     
     • \`Kullanıcı:\` ${üye}
     • \`Yetkili:\` ${message.author} 
-    • \`Yeni İsim:\` **${"id.tag"} ${isim} | ${yas}**
+    • \`Yeni İsim:\` **${id.tag} ${isim} | ${yas}**
     
     Kayıt Türünü Emojilere Basarak Seçebilirsiniz;
     ♂ : \`Erkek Kayıt\`, ♀ : \`Kız Kayıt\`, ❌ : \`Kayıt İşlemi İptal\``)
@@ -138,11 +138,11 @@ module.exports.run = async (client, message, args) => {
     üye.roles.remove(id.kayıtsız);
     üye.roles.add(id.erkekrol1);
     üye.roles.add(id.erkekrol2);
-    üye.setNickname(`₰ ${isim} | ${yas}`);
+    üye.setNickname(`${id.tag} ${isim} | ${yas}`);
     client.channels.cache
       .get(id.genelsohbet)
       .send(
-        `${üye.user} \`adlı üye sunucumuza kayıt oldu. Aramıza hoş geldin :)`
+        `${üye.user} \`adlı üye sunucumuza kayıt oldu. Aramıza hoş geldin :)\``
       )
       .then(x => x.delete({ timeout: 60000 }));
 
@@ -157,11 +157,11 @@ module.exports.run = async (client, message, args) => {
     üye.roles.remove(id.kayıtsız);
     üye.roles.add(id.kızrol1);
     üye.roles.add(id.kızrol2);
-    üye.setNickname(`₰ ${isim} | ${yas}`);
+    üye.setNickname(`${id.tag} ${isim} | ${yas}`);
     client.channels.cache
       .get(id.genelsohbet)
       .send(
-        `${üye.user} \`adlı üye sunucumuza kayıt oldu. Aramıza hoş geldin :)`
+        `${üye.user} \`adlı üye sunucumuza kayıt oldu. Aramıza hoş geldin :)\``
       )
       .then(x => x.delete({ timeout: 60000 }));
 
