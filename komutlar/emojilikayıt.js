@@ -70,14 +70,13 @@ module.exports.run = async (client, message, args) => {
 
   let kayıtmesaj = await message.channel.send(
     new Discord.MessageEmbed().setColor("BLUE")
-      .setDescription(`**__Kayıt İşlemi Başlatıldı;__**
+      .setDescription(`**__Lütfen Alttan Uygun Alt Yapıyı Seçin__**
     
-    • \`Kullanıcı:\` ${üye}
-    • \`Yetkili:\` ${message.author} 
-    • \`Yeni İsim:\` **${id.tag} ${isim} | ${yas}**
+    • <a:zynex_0:825655034461159444> - Kayıt Botu V12
+    • <a:zynex_1:825655108725243915> - Emojili Kayıt Botu V12
+    • <a:zynex_2:825655200437239869> - Guard Botu v12
     
-    Kayıt Türünü Emojilere Basarak Seçebilirsiniz;
-    ♂ : \`Erkek Kayıt\`, ♀ : \`Kız Kayıt\`, ❌ : \`Kayıt İşlemi İptal\``)
+`)
   );
 
   kayıtmesaj
