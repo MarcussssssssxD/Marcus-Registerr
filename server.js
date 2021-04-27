@@ -379,3 +379,5 @@ client.on("ready", () => {
 client
   .login(ayarlar.token)
   .then(console.log("Bot başarılı bir şekilde giriş yaptı."));
+
+
