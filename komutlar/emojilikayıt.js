@@ -100,7 +100,7 @@ module.exports.run = async (client, message, args) => {
               .setColor("GREEN")
               .setAuthor("Erkek olarak bir kullanıcı kaydedildi!")
               .setDescription(
-                `<a:basarili:796036099562012674> ${üye.user} adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.erkekrol1}>, <@&${id.erkekrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri}`
+                `${üye.user} adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.erkekrol1}>, <@&${id.erkekrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri}`
               )
           )
           .then(m => m.delete({ timeout: 15000 }));
@@ -112,7 +112,7 @@ module.exports.run = async (client, message, args) => {
               .setColor("GREEN")
               .setAuthor("Kız olarak bir kullanıcı kaydedildi!")
               .setDescription(
-                `<a:basarili:796036099562012674> ${üye.user} adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.kızrol1}>, <@&${id.kızrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri} `
+                `${üye.user} adlı kullanıcının ismini başarılı bir şekilde \`₰ ${isim} | ${yas}\` yapıp, <@&${id.kızrol1}>, <@&${id.kızrol2}> rollerini verdim. Kullanıcının önceki isimleri\n${ismleri} `
               )
           )
           .then(m => m.delete({ timeout: 15000 }));
